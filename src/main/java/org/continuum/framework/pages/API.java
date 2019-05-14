@@ -151,4 +151,24 @@ public void getAPIVerifyNameInJsonResponse()
  
 }
 
+public void DisplayAllNodesInWeatherAPI()
+{
+ RestAssured.baseURI = "http://internal-entitlement-partnerspecific-72155629.ap-south-1.elb.amazonaws.com/entitlement/v1/partners";
+ RequestSpecification httpRequest = RestAssured.given();
+ Response response = httpRequest.get("/50016821/products");
+ 
+ // First get the JsonPath object instance from the Response interface
+ JsonPath jsonPathEvaluator = response.jsonPath();
+ 
+ // Let us print the city variable to see what we got
+ System.out.println("ID received from Response " + jsonPathEvaluator.get("[0].id"));
+ 
+ // Print the temperature node
+ System.out.println("Name received from Response " + jsonPathEvaluator.get("[0].name"));
+ 
+ // Print the humidity node
+ System.out.println("Description received from Response " + jsonPathEvaluator.get("[0].description"));
+ 
+}
+
 }

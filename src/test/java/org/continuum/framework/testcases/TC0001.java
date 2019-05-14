@@ -60,6 +60,13 @@ public class TC0001 {
 	 			API AP = new API();
 	 			AP.getAPIVerifyNameInJsonResponse();
 	 		}
+	   @Test
+		public void TC00088()
+		{
+			API AP = new API();
+			AP.DisplayAllNodesInWeatherAPI();
+		}
+	   
 	}
 
 
