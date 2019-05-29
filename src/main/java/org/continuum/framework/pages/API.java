@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 import com.google.gson.Gson;
@@ -12,6 +13,8 @@ import com.google.gson.JsonElement;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
 import io.restassured.http.Method;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -171,4 +174,55 @@ public void DisplayAllNodesInWeatherAPI()
  
 }
 
+public void GetWeatherHeaders()
+{
+ RestAssured.baseURI = "http://internal-entitlement-partnerspecific-72155629.ap-south-1.elb.amazonaws.com/entitlement/v1/partners";
+ RequestSpecification httpRequest = RestAssured.given();
+ Response response = httpRequest.get("/50016821/products");
+ 
+ // Reader header of a give name. In this line we will get
+ // Header named Content-Type
+ String contentType = response.header("Content-Type");
+ System.out.println("Content-Type value: " + contentType);
+ 
+ // Reader header of a give name. In this line we will get
+ // Header named Server
+ String serverType =  response.header("Server");
+ System.out.println("Server value: " + serverType);
+ 
+ // Reader header of a give name. In this line we will get
+ // Header named Content-Encoding
+ String acceptLanguage = response.header("Content-Encoding");
+ System.out.println("Content-Encoding: " + acceptLanguage);
+}
+
+
+public void IteratingOverHeaders()
+{
+ RestAssured.baseURI = "http://restapi.demoqa.com/utilities/weather/city";
+ RequestSpecification httpRequest = RestAssured.given();
+ Response response = httpRequest.get("/Hyderabad");
+ 
+ // Get all the headers. Return value is of type Headers.
+ // Headers class implements Iterable interface, hence we
+ // can apply an advance for loop to go through all Headers
+ // as shown in the code below
+ Headers allHeaders = response.headers();
+ 
+ // Iterate over all the Headers
+ for(Header header : allHeaders)
+ {
+ System.out.println("Key: " + header.getName() + " Value: " + header.getValue());
+ }
+}
+
+public void executeUserAccountRestAPI(String PartnerID, String ClientID, String SiteID)
+{
+    try {
+        String aplUrl = "http://internal-intplatformuseraccountservice-623194110.ap-south-1.elb.amazonaws.com/useraccount/v1/partners/"+PartnerID+"/clients/"+ClientID+"/sites/"+SiteID+"/users";
+      Response  Response = RestAssured.get(aplUrl);
+    } catch (Exception e) {
+        Reporter.log("Not able to execute REST API Endpoints for User Account API. \n"+ e.getMessage(),true);
+    }
+}
 }

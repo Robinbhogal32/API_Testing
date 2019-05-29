@@ -2,6 +2,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="BDTSuite">
 
+<groups>
+    <run>
+    <include name="All"/>
+    </run>
+  </groups>
+
   <test name="My TestNG Tests">
     <packages>
       <package name="org.continuum.framework.testcases"/>
